@@ -1,9 +1,7 @@
 import React from "react";
 import type { FormProps } from "antd";
 import { Button, Form, Input } from "antd";
-import axios from "axios";
-
-const API_URL = "https://furnishing.carwashing.uz/api/admin/auth/signin";
+import { request } from "../../api";
 
 type FieldType = {
   email?: string;
@@ -14,8 +12,8 @@ type FieldType = {
 
 const Login: React.FC = () => {
   const onFinish: FormProps<FieldType>["onFinish"] = (values) => {
-    axios
-      .post(API_URL, values)
+    request
+      .post(`/admin/auth/signin`, values)
       .then(res => {
         console.log(res?.data?.data?.access_token);
         localStorage.setItem("access_token", res?.data?.data?.access_token);
